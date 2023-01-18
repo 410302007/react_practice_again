@@ -230,6 +230,7 @@ function Exam2() {
         //以下相當於上面的程式結果
         //v的id是3->改變文字;不是3->不要改變文字
         const newData = data.map((v,i)=>{
+        //物件合併屬性值
           if(v.id === 3) return {...v,text:'cccc'}
           return {...v}
         })
