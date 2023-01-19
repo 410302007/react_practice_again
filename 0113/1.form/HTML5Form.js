@@ -11,6 +11,11 @@ function HTML5Form(){
   //state中紀錄使用者選了單一值
   const [food, setFood] = useState(''); //state中紀錄使用者選了哪個值
   const foodOptions = ['排骨飯', '滷肉飯', '雞腿飯', '健康餐盒'];
+
+  //checkbox_one
+  //一開始預設為不同意
+  const [agree, setAgree] = useState(false);
+  
   return (
   <>
   <h1>可控的表單元件範例</h1>
@@ -37,6 +42,7 @@ function HTML5Form(){
               <input
                 type="radio"
                 value={v}
+                //boolean值，代表目前是否有被使用者使用
                 checked={food === v}
                 onChange={(e) => {
                   setFood(e.target.value);
@@ -46,6 +52,17 @@ function HTML5Form(){
             </div>
           );
         })}
+      </section>
+      <section id="checkbox-one">
+        <h2>核取方塊(單一)</h2>
+        <input
+          type="checkbox"
+          checked={agree}
+          onChange={(e) => {
+            setAgree(e.target.checked);
+          }}
+        />
+        <label>我已閱讀並同意....</label>
       </section>
   </>
   )
