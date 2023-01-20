@@ -21,6 +21,17 @@ function HTML5Form(){
   const [likeList, setLikeList] = useState(['芒果']); //預設值為芒果
   const fruitOptions = ['芒果', '香蕉'];
 
+  
+  //checkbox group - 2 第二種方法
+  const petOptions = ['狗', '貓', '兔'];
+  //state中要記錄個選項的物件
+  //ex: [{id:0,value:'貓', checked:false},....]
+  const [pets, setPets] = useState(
+    petOptions.map((v, i) => {
+      return { id: i, value: v, checked: false }
+    })
+  );
+
   return (
   <>
   <h1>可控的表單元件範例</h1>
@@ -96,6 +107,30 @@ function HTML5Form(){
                 }}
               />
               <label>{v}</label>
+            </div>
+          );
+        })}
+      </section>
+      <section id="checkbox-group">
+        <h2>核取方塊2(群組)(checkbox-group-2)</h2>
+        {pets.map((v, i) => {
+          return (
+            <div key={i}>
+              <input
+                type="checkbox"
+                value={v.value}
+                checked={v.checked}
+                onChange={(e) => {
+                  const newPets = pets.map((v2, i2) => {
+                    //當目前id與i(使用者點按下的那個項目的索引值)相等時，checked值改變
+                    if (v2.id === i) return { ...v2, checked: !v2.checked };
+
+                    return { ...v2 };
+                  });
+                  setPets(newPets);
+                }}
+              />
+              <label>{v.value}</label>
             </div>
           );
         })}
