@@ -69,9 +69,19 @@ function HTMLValidForm() {
     e.preventDefault()
 
     // console.log('檢查有錯誤:', e.target.name, e.target.validationMessage)
+
+    //紀錄錯誤訊息
     setFieldErrors({
       ...fieldErrors,
       [e.target.name]: e.target.validationMessage,
+    });
+  }
+  //當使用者回頭修正表單中任一欄位時，先清除此欄位的錯誤訊息
+  const handleFormChange=(e)=>{
+    //紀錄錯誤訊息
+    setFieldErrors({
+      ...fieldErrors,
+      [e.target.name]: '',
     });
   }
 
@@ -82,7 +92,8 @@ function HTMLValidForm() {
       {/* 要在form表單標記中才能使用HTML5表單驗證 */}
       {/* onSubmit是表單完全合法(通過驗證)後才會觸發 */}
       {/* onInvalid是表單有發生驗証錯誤時，會觸發此事件 */}
-      <form onSubmit={handleSubmit} onInvalid={handleInvalid}>
+      {/* onChange是表單任一欄位有變動時，會觸發此事件 */}
+      <form onSubmit={handleSubmit} onInvalid={handleInvalid} onChange={handleFormChange}>
         <div>
           <label>姓名</label>
           {/*  
