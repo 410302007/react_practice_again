@@ -64,7 +64,7 @@ function HTMLValidForm() {
   }
 
   //表單有發生驗証錯誤時，會觸發此事件
-  const handleInvaild = (e) => {
+  const handleInvalid = (e) => {
     //第一行要阻擋預設的form送出行為->泡泡錯誤訊息
     e.preventDefault()
 
