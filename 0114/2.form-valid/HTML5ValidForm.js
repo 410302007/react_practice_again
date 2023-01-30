@@ -34,11 +34,38 @@ function HTMLValidForm() {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
+  const handleSubmit=(e)=>{
+    //第一行要阻擋預設的form送出行為
+    e.preventDefault()
+
+    // 獲得目前的表單輸入值
+    // 1. 從state獲得
+    console.log(user)
+
+    // 2. 用FormData API獲得
+    const formData = new FormData(e.target)
+    console.log(formData.get('fullname'), formData.get('email'))
+
+    // 作 額外的/客製的檢查工作
+
+    // 作 資料整理/整合工作
+
+    // 作 送至伺服器(fetch, ajax...)
+  }
+
+  //表單有發生驗証錯誤時，會觸發此事件
+  const handleInvaild = (e) => {
+    console.log('檢查有錯誤了！')
+  }
+
+
   return (
     <>
       <h1>HTML5表單驗證</h1>
       {/* 要在form表單標記中才能使用HTML5表單驗證 */}
-      <form>
+      {/* onSubmit是表單完全合法(通過驗證)後才會觸發 */}
+      {/* onInvalid是表單有發生驗証錯誤時，會觸發此事件 */}
+      <form onSubmit={handleSubmit}>
         <div>
           <label>姓名</label>
           {/*  
@@ -120,6 +147,35 @@ function HTMLValidForm() {
         </div>
         {/*  在form標記中加入button，建議寫上type，因沒加註type相當於submit(提交表單)*/}
         <button type="submit">提交</button>
+        <hr />
+        <button
+          type="button"
+          onClick={() => {
+            setUser({
+              fullname: '張小草',
+              email: 'abc@gmail.com',
+              username: 'abc',
+              password: '12345',
+              showPassword: true,
+            })
+          }}
+        >
+          填入正確範例資料
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setUser({
+              fullname: '',
+              email: 'abc',
+              username: 'abc',
+              password: '12345',
+              showPassword: true,
+            })
+          }}
+        >
+          填入錯誤範例資料
+        </button>
       </form>
     </>
   );
