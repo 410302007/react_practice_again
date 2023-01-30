@@ -57,6 +57,14 @@ function HTMLValidForm() {
     console.log(formData.get('fullname'), formData.get('email'))
 
     // 作 額外的/客製的檢查工作
+    if(user.password1 !== user.password2){
+      setFieldErrors({
+        ...fieldErrors,
+        password1:'密碼與再次確認密碼欄位值不相同',
+        password2:'密碼與再次確認密碼欄位值不相同',
+    })
+    return
+  }
 
     // 作 資料整理/整合工作
 
@@ -175,6 +183,7 @@ function HTMLValidForm() {
             pattern="09\d{2}-?\d{3}-?\d{3}"
             value={user.phone}
             onChange={handleFieldChange}
+            required
           />
            <span className="error">{fieldErrors.phone}</span>
         </div>
@@ -188,8 +197,10 @@ function HTMLValidForm() {
               fullname: '張小草',
               email: 'abc@gmail.com',
               username: 'abc',
-              password: '12345',
-              showPassword: true,
+              password1: '12345678',
+              password2: '12345678',
+              showPassword1: true,
+              showPassword2: true,
             })
           }}
         >
@@ -202,8 +213,10 @@ function HTMLValidForm() {
               fullname: '',
               email: 'abc',
               username: 'abc',
-              password: '12345',
+              password1: '12345',
+              password2:'12345',
               showPassword: true,
+              showPassword2:true,
             })
           }}
         >
