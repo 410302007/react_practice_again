@@ -2,9 +2,9 @@ import { useState } from 'react';
 function TodoApp() {
   const [inputText, setInputText] = useState('');
   const [todos, setTodos] = useState([
-    { id: 1, text: '買牛奶' },
-    { id: 2, text: '買麵包' },
-    { id: 3, text: '買飲料' },
+    { id: 1, text: '買牛奶', completed: false },
+    { id: 2, text: '買麵包', completed: true },
+    { id: 3, text: '買飲料', completed: false },
   ]);
   return (
     <>
@@ -48,7 +48,33 @@ function TodoApp() {
       <ul>
         {/* 不可用索引值當key，索引值在執行過程中會因為新增、刪除而改變 */}
         {todos.map((v, i) => {
-          return <li key={v.id}>{v.text}</li>;
+          return <li key={v.id} className={v.completed ? 'completed' : 'active'} >
+          <input type="checkbox" checked={v.completed} onChange={(e) => {
+                  // 1. 從目前的狀態拷貝(ps.深拷貝/完全拷貝)出一個新的變數值(陣列/物件)\
+                  const newTodos = todos.map((v2) => {
+                    return { ...v2 };
+                  });
+
+                  // 其它深拷貝語法
+                  //const newTodos = JSON.parse(JSON.stringify(todos))
+
+                  // 2. 在新的變數值(陣列/物件)上作處理
+                  newTodos[i].completed = !newTodos[i].completed;
+
+                  // 3. 設定回原本的狀態中
+                  setTodos(newTodos);
+
+                  // 下面是同樣的結果的寫法
+                  // const newTodos = todos.map((v2, i2) => {
+                  //   if (v.id === v2.id)
+                  //     return { ...v2, completed: !v2.completed }
+                  //   else
+                  //     return { ...v2 }
+                  // })
+                  //setTodos(newTodos)
+                }}
+              />
+          {v.text}</li>;
         })}
       </ul>
     </>
