@@ -67,6 +67,12 @@ props:
     (2)可向下傳遞(從父母元件用ref可向下傳到子女元件)
     (3)非屬性，不可用屬性方式傳遞(非單向資料流)->forwardRef
 
+  16.button有三種type:
+     (1)button(一般按鈕)
+     (2)reset (重置)
+     (3)submit(真正的"提交")->傳送表單
+    button->若沒寫type， 預設為提交(type:submit)
+
 ----------------------
 truthy/ falsy :
  **falsy-> 強制轉型為boolean值，回傳false:
