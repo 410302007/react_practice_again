@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './HTML5ValidForm.css';
 
 function HTMLValidForm() {
   //1. 保持state在應用程式執行過程中，資料類型一致(物件 -> 物件 -> 物件)
@@ -12,6 +13,15 @@ function HTMLValidForm() {
     phone: '',
     showPassword1: false, //用於切換密碼欄位類型使用
     showPassword2: false, //用於切換密碼欄位類型使用
+  });
+
+  //紀錄錯誤訊息之用
+  const [fieldErrors, setFieldErrors] = useState({
+    fullname: '',
+    email: '',
+    password1: '',
+    password2: '',
+    phone: '',
   });
 
   //處裡欄位變動
@@ -35,7 +45,7 @@ function HTMLValidForm() {
   };
 
   const handleSubmit=(e)=>{
-    //第一行要阻擋預設的form送出行為
+    //第一行要阻擋預設的form送出行為->泡泡錯誤訊息
     e.preventDefault()
 
     // 獲得目前的表單輸入值
@@ -55,7 +65,14 @@ function HTMLValidForm() {
 
   //表單有發生驗証錯誤時，會觸發此事件
   const handleInvaild = (e) => {
-    console.log('檢查有錯誤了！')
+    //第一行要阻擋預設的form送出行為->泡泡錯誤訊息
+    e.preventDefault()
+
+    // console.log('檢查有錯誤:', e.target.name, e.target.validationMessage)
+    setFieldErrors({
+      ...fieldErrors,
+      [e.target.name]: e.target.validationMessage,
+    });
   }
 
 
@@ -65,7 +82,7 @@ function HTMLValidForm() {
       {/* 要在form表單標記中才能使用HTML5表單驗證 */}
       {/* onSubmit是表單完全合法(通過驗證)後才會觸發 */}
       {/* onInvalid是表單有發生驗証錯誤時，會觸發此事件 */}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} onInvalid={handleInvalid}>
         <div>
           <label>姓名</label>
           {/*  
@@ -80,6 +97,7 @@ function HTMLValidForm() {
             //加入必填屬性
             required
           />
+           <span className="error">{fieldErrors.fullname}</span>
         </div>
         <div>
           <label>信箱</label>
@@ -90,6 +108,7 @@ function HTMLValidForm() {
             onChange={handleFieldChange}
             required
           />
+           <span className="error">{fieldErrors.email}</span>
           <button type="button">檢查此信箱是否已註冊</button>
         </div>
         <div>
@@ -105,6 +124,7 @@ function HTMLValidForm() {
             minLength={8}
             maxLength={10}
           />
+           <span className="error">{fieldErrors.password1}</span>
           <br />
           <input
             type="checkbox"
@@ -126,6 +146,7 @@ function HTMLValidForm() {
             minLength={8}
             maxLength={10}
           />
+           <span className="error">{fieldErrors.password2}</span>
           <br />
           <input
             type="checkbox"
@@ -144,6 +165,7 @@ function HTMLValidForm() {
             value={user.phone}
             onChange={handleFieldChange}
           />
+           <span className="error">{fieldErrors.phone}</span>
         </div>
         {/*  在form標記中加入button，建議寫上type，因沒加註type相當於submit(提交表單)*/}
         <button type="submit">提交</button>
