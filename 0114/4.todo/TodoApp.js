@@ -9,6 +9,22 @@ function TodoApp() {
     { id: 3, text: '買飲料', completed: false },
   ]);
 
+  //-------------------------------
+  //reducer
+  //獨立模組 
+  //純粹函式，除了傳入參數外，不倚靠其他狀態，沒有用到外部變數
+  const addTodoPure = (state, text)=>{
+    return [
+      {
+      id:Number(new Date()),
+      text:text,
+      completed:false, //預設未完成
+      },
+      ...state,
+    ]
+  }
+  //-----------------------------
+
   const addTodo =(text)=>{
     // id的選擇
     // 1. 單人使用應用，可用時間日期毫秒整數值，如`Number(new Date())`或`+new Date()`
@@ -62,7 +78,7 @@ if (index !== -1) {
   setTodos(newTodos)
 }
 
-// 用map中判斷的語法，與上面同樣結果的寫法
+// 用map中判斷的語法，與上面同樣結果的寫法(寫法較好)
 // const newTodos = todos.map((v2, i2) => {
 //   if (id === v2.id)
 //     return { ...v2, completed: !v2.completed }
