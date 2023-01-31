@@ -1,0 +1,9 @@
+.completed{
+  text-decoration: line-through;
+  color: gray;
+}
+
+.active{
+  color:goldenrod;
+  font-weight: bold;
+}
