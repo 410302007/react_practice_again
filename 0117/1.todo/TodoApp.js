@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import AddForm from './AddForm';
-import TodoList from './TodoList';
+import AddForm from './components/AddForm';
+import TodoList from './components/TodoList/index';
 import './TodoApp.css';
 function TodoApp() {
   // const [inputText, setInputText] = useState('');
